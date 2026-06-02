@@ -15,6 +15,14 @@
         DragEnter="Window_DragEnter"
         Drop="Window_Drop">
     <Window.Resources>
+        <SolidColorBrush x:Key="AppBackgroundBrush" Color="#EEF2F5"/>
+        <SolidColorBrush x:Key="PanelBackgroundBrush" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="BorderBrush" Color="#DCE3E8"/>
+        <SolidColorBrush x:Key="PrimaryTextBrush" Color="#1E2933"/>
+        <SolidColorBrush x:Key="MutedTextBrush" Color="#6D7A86"/>
+        <SolidColorBrush x:Key="SoftButtonBrush" Color="#F7F9FB"/>
+        <SolidColorBrush x:Key="EditorBackgroundBrush" Color="#1F2933"/>
+        <SolidColorBrush x:Key="EditorTextBrush" Color="#E5EDF2"/>
         <Style TargetType="Button">
             <Setter Property="Padding" Value="13,7"/>
             <Setter Property="Margin" Value="4,0"/>
@@ -61,7 +69,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Border Grid.Column="0" Background="White" BorderBrush="#DCE3E8" BorderThickness="0,0,1,0">
+            <Border Grid.Column="0" Background="{DynamicResource PanelBackgroundBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,0,1,0">
                 <Grid Margin="12">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -69,20 +77,20 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <DockPanel Grid.Row="0" Margin="0,4,0,12">
-                        <TextBlock Text="НЕДАВНИЕ ДОКУМЕНТЫ" Foreground="#6D7A86" FontSize="12" FontWeight="Bold" VerticalAlignment="Center"/>
-                        <Button DockPanel.Dock="Right" Content="+" Foreground="#087F8C" Background="#F7F9FB" BorderBrush="#DCE3E8" Padding="7,2" Click="Open_Click"/>
+                        <TextBlock Text="НЕДАВНИЕ ДОКУМЕНТЫ" Foreground="{DynamicResource MutedTextBrush}" FontSize="12" FontWeight="Bold" VerticalAlignment="Center"/>
+                        <Button DockPanel.Dock="Right" Content="+" Foreground="#087F8C" Background="{DynamicResource SoftButtonBrush}" BorderBrush="{DynamicResource BorderBrush}" Padding="7,2" Click="Open_Click"/>
                     </DockPanel>
-                    <ListBox x:Name="RecentFilesList" Grid.Row="1" BorderThickness="0" Background="Transparent" SelectionChanged="RecentFilesList_SelectionChanged">
+                    <ListBox x:Name="RecentFilesList" Grid.Row="1" BorderThickness="0" Background="Transparent" Foreground="{DynamicResource PrimaryTextBrush}" SelectionChanged="RecentFilesList_SelectionChanged">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Margin="2,7">
                                     <TextBlock Text="{Binding Name}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/>
-                                    <TextBlock Text="{Binding FullPath}" Foreground="#6D7A86" FontSize="11" TextTrimming="CharacterEllipsis"/>
+                                    <TextBlock Text="{Binding FullPath}" Foreground="{DynamicResource MutedTextBrush}" FontSize="11" TextTrimming="CharacterEllipsis"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <TextBlock Grid.Row="2" Text="Перетащите .md файл в окно, чтобы открыть его." Foreground="#6D7A86" FontSize="12" TextWrapping="Wrap" Margin="0,12,0,4"/>
+                    <TextBlock Grid.Row="2" Text="Перетащите .md файл в окно, чтобы открыть его." Foreground="{DynamicResource MutedTextBrush}" FontSize="12" TextWrapping="Wrap" Margin="0,12,0,4"/>
                 </Grid>
             </Border>
 
@@ -92,7 +100,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Border Grid.Row="0" Background="White" BorderBrush="#DCE3E8" BorderThickness="0,0,0,1">
+                <Border Grid.Row="0" Background="{DynamicResource PanelBackgroundBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,0,0,1">
                     <Grid Margin="18,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -100,19 +108,19 @@
                             <ColumnDefinition Width="110"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                            <TextBlock x:Name="FileNameText" Text="Новый отчёт" FontWeight="SemiBold"/>
-                            <TextBlock x:Name="FilePathText" Text="Документ ещё не сохранён" Foreground="#6D7A86" FontSize="12" TextTrimming="CharacterEllipsis"/>
+                            <TextBlock x:Name="FileNameText" Text="Новый отчёт" Foreground="{DynamicResource PrimaryTextBrush}" FontWeight="SemiBold"/>
+                            <TextBlock x:Name="FilePathText" Text="Документ ещё не сохранён" Foreground="{DynamicResource MutedTextBrush}" FontSize="12" TextTrimming="CharacterEllipsis"/>
                         </StackPanel>
                         <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                            <Button Content="Просмотр" Foreground="#087F8C" Background="#F7F9FB" BorderBrush="#DCE3E8" Click="PreviewMode_Click"/>
-                            <Button Content="Разделённый" Foreground="#6D7A86" Background="#F7F9FB" BorderBrush="#DCE3E8" Click="SplitMode_Click"/>
-                            <Button Content="Редактор" Foreground="#6D7A86" Background="#F7F9FB" BorderBrush="#DCE3E8" Click="EditorMode_Click"/>
+                            <Button Content="Просмотр" Foreground="#087F8C" Background="{DynamicResource SoftButtonBrush}" BorderBrush="{DynamicResource BorderBrush}" Click="PreviewMode_Click"/>
+                            <Button Content="Разделённый" Foreground="{DynamicResource MutedTextBrush}" Background="{DynamicResource SoftButtonBrush}" BorderBrush="{DynamicResource BorderBrush}" Click="SplitMode_Click"/>
+                            <Button Content="Редактор" Foreground="{DynamicResource MutedTextBrush}" Background="{DynamicResource SoftButtonBrush}" BorderBrush="{DynamicResource BorderBrush}" Click="EditorMode_Click"/>
                         </StackPanel>
-                        <TextBlock x:Name="SaveStateText" Grid.Column="2" Text="Сохранено" Foreground="#6D7A86" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="SaveStateText" Grid.Column="2" Text="Сохранено" Foreground="{DynamicResource MutedTextBrush}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                     </Grid>
                 </Border>
 
-                <Grid Grid.Row="1" x:Name="DocumentGrid" Background="#EEF2F5">
+                <Grid Grid.Row="1" x:Name="DocumentGrid" Background="{DynamicResource AppBackgroundBrush}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition x:Name="EditorColumn" Width="0"/>
                         <ColumnDefinition x:Name="PreviewColumn" Width="*"/>
@@ -126,12 +134,12 @@
                              HorizontalScrollBarVisibility="Auto"
                              FontFamily="Consolas"
                              FontSize="14"
-                             Background="#1F2933"
-                             Foreground="#E5EDF2"
+                             Background="{DynamicResource EditorBackgroundBrush}"
+                             Foreground="{DynamicResource EditorTextBrush}"
                              BorderThickness="0"
                              Padding="24"
                              TextChanged="EditorTextBox_TextChanged"/>
-                    <Border Grid.Column="1" x:Name="PreviewHost" Margin="28" Background="White" BorderBrush="#DCE3E8" BorderThickness="1">
+                    <Border Grid.Column="1" x:Name="PreviewHost" Margin="28" Background="{DynamicResource PanelBackgroundBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1">
                         <wv2:WebView2 x:Name="PreviewWebView"/>
                     </Border>
                 </Grid>

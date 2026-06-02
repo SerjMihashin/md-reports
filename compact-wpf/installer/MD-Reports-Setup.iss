@@ -1,5 +1,5 @@
 #define MyAppName "MD Reports"
-#define MyAppVersion "1.0.0"
+#define MyAppVersion "1.0.1"
 #define MyAppPublisher "MD Reports"
 #define MyAppExeName "MD-Reports.exe"
 #define MyAppId "{{7C9A6E65-B5B6-4A4B-A43D-786A5A6B0E51}"
@@ -14,7 +14,7 @@ DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=yes
 PrivilegesRequired=lowest
 OutputDir=output
-OutputBaseFilename=MD-Reports-Setup-1.0.0
+OutputBaseFilename=MD-Reports-Setup-1.0.1
 SetupIconFile=..\MDReports.Wpf\Resources\app.ico
 UninstallDisplayIcon={app}\{#MyAppExeName}
 Compression=lzma2

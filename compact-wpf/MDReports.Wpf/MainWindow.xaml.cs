@@ -123,7 +123,15 @@ public partial class MainWindow : Window
     private void Theme_Click(object sender, RoutedEventArgs e)
     {
         _darkMode = !_darkMode;
-        DocumentGrid.Background = Brush(_darkMode ? "#18242A" : "#EEF2F5");
+        SetThemeBrush("AppBackgroundBrush", _darkMode ? "#18242A" : "#EEF2F5");
+        SetThemeBrush("PanelBackgroundBrush", _darkMode ? "#223138" : "#FFFFFF");
+        SetThemeBrush("BorderBrush", _darkMode ? "#3B4F56" : "#DCE3E8");
+        SetThemeBrush("PrimaryTextBrush", _darkMode ? "#E8F0F2" : "#1E2933");
+        SetThemeBrush("MutedTextBrush", _darkMode ? "#A8BBC1" : "#6D7A86");
+        SetThemeBrush("SoftButtonBrush", _darkMode ? "#2A3C43" : "#F7F9FB");
+        SetThemeBrush("EditorBackgroundBrush", _darkMode ? "#172126" : "#1F2933");
+        SetThemeBrush("EditorTextBrush", _darkMode ? "#E8F0F2" : "#E5EDF2");
+        SetDirty(_dirty);
         RenderPreview();
     }
 
@@ -232,7 +240,7 @@ public partial class MainWindow : Window
     {
         _dirty = value;
         SaveStateText.Text = value ? "Есть изменения" : "Сохранено";
-        SaveStateText.Foreground = Brush(value ? "#A55D08" : "#6D7A86");
+        SaveStateText.Foreground = value ? Brush(_darkMode ? "#F4B860" : "#A55D08") : (System.Windows.Media.Brush)FindResource("MutedTextBrush");
     }
 
     private void UpdateDocumentLabels()
@@ -295,6 +303,8 @@ public partial class MainWindow : Window
 
     private static System.Windows.Media.Brush Brush(string value) =>
         (System.Windows.Media.Brush)new System.Windows.Media.BrushConverter().ConvertFromString(value)!;
+
+    private void SetThemeBrush(string key, string value) => Resources[key] = Brush(value);
 
     [DllImport("shell32.dll")]
     private static extern void SHChangeNotify(uint eventId, uint flags, IntPtr item1, IntPtr item2);
