@@ -4,6 +4,7 @@ release/*.exe
 release/*.md
 MD-Reports-Client-Package.zip
 MD-Reports-Compact-Client-Package.zip
+MD-Reports-Compact-Setup-*.exe
 test/*.pdf
 *.log
 .dotnet/
@@ -12,3 +13,7 @@ compact-wpf/**/bin/
 compact-wpf/**/obj/
 compact-wpf/release/
 compact-wpf/client-package/
+compact-wpf/installer/app/
+compact-wpf/installer/output/
+compact-wpf/installer/redist/
+compact-wpf/installer-test-install/
