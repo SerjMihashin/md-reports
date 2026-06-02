@@ -5,6 +5,7 @@ release/*.md
 MD-Reports-Client-Package.zip
 MD-Reports-Compact-Client-Package.zip
 MD-Reports-Compact-Setup-*.exe
+MD-Reports-Setup-*.exe
 test/*.pdf
 *.log
 .dotnet/

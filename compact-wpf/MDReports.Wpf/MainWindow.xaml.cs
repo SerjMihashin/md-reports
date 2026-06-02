@@ -102,7 +102,7 @@ public partial class MainWindow : Window
     {
         try
         {
-            const string appId = "MDReportsCompact.Markdown";
+            const string appId = "MDReports.Markdown";
             var exePath = Environment.ProcessPath ?? Process.GetCurrentProcess().MainModule?.FileName ?? "";
             using var classes = Registry.CurrentUser.CreateSubKey(@"Software\Classes");
             classes.CreateSubKey(".md")?.SetValue("", appId);
@@ -239,15 +239,15 @@ public partial class MainWindow : Window
     {
         FileNameText.Text = Path.GetFileName(_currentPath ?? "Новый отчёт");
         FilePathText.Text = _currentPath ?? "Документ ещё не сохранён";
-        Title = $"MD Отчёты Compact — {FileNameText.Text}";
+        Title = $"MD Reports — {FileNameText.Text}";
     }
 
     private bool CanDiscardChanges() =>
-        !_dirty || MessageBox.Show("В документе есть несохранённые изменения. Продолжить?", "MD Отчёты Compact",
+        !_dirty || MessageBox.Show("В документе есть несохранённые изменения. Продолжить?", "MD Reports",
             MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
 
     private string RecentFileStore => Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MD-Reports-Compact", "recent-files.txt");
+        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MD-Reports", "recent-files.txt");
 
     private void AddRecentFile(string filePath)
     {

@@ -1,4 +1,4 @@
-# MD Отчёты Compact
+# MD Reports
 
 Компактная Windows-версия просмотрщика Markdown-отчётов на C# WPF + WebView2.
 
@@ -34,7 +34,7 @@
 ## Автоматическая проверка PDF
 
 ```powershell
-.\compact-wpf\release\MD-Reports-Compact.exe .\report.md `
+.\compact-wpf\release\MD-Reports.exe .\report.md `
   --smoke-pdf .\compact-wpf\release\smoke-report.pdf
 ```
 
