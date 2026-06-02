@@ -3,5 +3,12 @@ dist/
 release/*.exe
 release/*.md
 MD-Reports-Client-Package.zip
+MD-Reports-Compact-Client-Package.zip
 test/*.pdf
 *.log
+.dotnet/
+dotnet-install.ps1
+compact-wpf/**/bin/
+compact-wpf/**/obj/
+compact-wpf/release/
+compact-wpf/client-package/

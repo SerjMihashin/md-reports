@@ -1,0 +1,141 @@
+<Window x:Class="MDReports.Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        Title="MD Отчёты Compact"
+        Width="1440"
+        Height="920"
+        MinWidth="960"
+        MinHeight="640"
+        Background="#EEF2F5"
+        AllowDrop="True"
+        Loaded="Window_Loaded"
+        Closing="Window_Closing"
+        PreviewKeyDown="Window_PreviewKeyDown"
+        DragEnter="Window_DragEnter"
+        Drop="Window_Drop">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="13,7"/>
+            <Setter Property="Margin" Value="4,0"/>
+            <Setter Property="Background" Value="#22464E"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#49676E"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+        </Style>
+    </Window.Resources>
+
+    <DockPanel>
+        <Border DockPanel.Dock="Top" Height="66" Background="#18333B">
+            <Grid Margin="18,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Image Width="40" Height="40" Source="Resources/logo.png" Margin="0,0,12,0"/>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="MD Отчёты Compact" Foreground="White" FontSize="16" FontWeight="SemiBold"/>
+                        <TextBlock Text="Лёгкий просмотр и редактирование Markdown" Foreground="#B9D1D5" FontSize="12"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button Content="Открыть" Background="#0E9EAA" BorderBrush="#0E9EAA" Click="Open_Click"/>
+                    <Button Content="Новый" Click="New_Click"/>
+                    <Button Content="Сохранить MD" Click="Save_Click"/>
+                    <Button Content="Экспорт PDF" Click="ExportPdf_Click"/>
+                    <Button Content="Печать" Click="Print_Click"/>
+                    <Button Content="Связать .md" ToolTip="Сделать приложением для Markdown-файлов" Click="Associate_Click"/>
+                    <Button Content="Тема" Click="Theme_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="240"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Background="White" BorderBrush="#DCE3E8" BorderThickness="0,0,1,0">
+                <Grid Margin="12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <DockPanel Grid.Row="0" Margin="0,4,0,12">
+                        <TextBlock Text="НЕДАВНИЕ ДОКУМЕНТЫ" Foreground="#6D7A86" FontSize="12" FontWeight="Bold" VerticalAlignment="Center"/>
+                        <Button DockPanel.Dock="Right" Content="+" Foreground="#087F8C" Background="#F7F9FB" BorderBrush="#DCE3E8" Padding="7,2" Click="Open_Click"/>
+                    </DockPanel>
+                    <ListBox x:Name="RecentFilesList" Grid.Row="1" BorderThickness="0" Background="Transparent" SelectionChanged="RecentFilesList_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="2,7">
+                                    <TextBlock Text="{Binding Name}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/>
+                                    <TextBlock Text="{Binding FullPath}" Foreground="#6D7A86" FontSize="11" TextTrimming="CharacterEllipsis"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <TextBlock Grid.Row="2" Text="Перетащите .md файл в окно, чтобы открыть его." Foreground="#6D7A86" FontSize="12" TextWrapping="Wrap" Margin="0,12,0,4"/>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="58"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Background="White" BorderBrush="#DCE3E8" BorderThickness="0,0,0,1">
+                    <Grid Margin="18,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="110"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock x:Name="FileNameText" Text="Новый отчёт" FontWeight="SemiBold"/>
+                            <TextBlock x:Name="FilePathText" Text="Документ ещё не сохранён" Foreground="#6D7A86" FontSize="12" TextTrimming="CharacterEllipsis"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                            <Button Content="Просмотр" Foreground="#087F8C" Background="#F7F9FB" BorderBrush="#DCE3E8" Click="PreviewMode_Click"/>
+                            <Button Content="Разделённый" Foreground="#6D7A86" Background="#F7F9FB" BorderBrush="#DCE3E8" Click="SplitMode_Click"/>
+                            <Button Content="Редактор" Foreground="#6D7A86" Background="#F7F9FB" BorderBrush="#DCE3E8" Click="EditorMode_Click"/>
+                        </StackPanel>
+                        <TextBlock x:Name="SaveStateText" Grid.Column="2" Text="Сохранено" Foreground="#6D7A86" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+
+                <Grid Grid.Row="1" x:Name="DocumentGrid" Background="#EEF2F5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition x:Name="EditorColumn" Width="0"/>
+                        <ColumnDefinition x:Name="PreviewColumn" Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="EditorTextBox"
+                             Grid.Column="0"
+                             AcceptsReturn="True"
+                             AcceptsTab="True"
+                             TextWrapping="NoWrap"
+                             VerticalScrollBarVisibility="Auto"
+                             HorizontalScrollBarVisibility="Auto"
+                             FontFamily="Consolas"
+                             FontSize="14"
+                             Background="#1F2933"
+                             Foreground="#E5EDF2"
+                             BorderThickness="0"
+                             Padding="24"
+                             TextChanged="EditorTextBox_TextChanged"/>
+                    <Border Grid.Column="1" x:Name="PreviewHost" Margin="28" Background="White" BorderBrush="#DCE3E8" BorderThickness="1">
+                        <wv2:WebView2 x:Name="PreviewWebView"/>
+                    </Border>
+                </Grid>
+            </Grid>
+        </Grid>
+    </DockPanel>
+</Window>
