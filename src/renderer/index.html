@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MD Отчёты</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <img class="brand__mark" src="./assets/logo.png" alt="">
+        <div>
+          <strong>MD Отчёты</strong>
+          <span>Просмотр и редактирование документов</span>
+        </div>
+      </div>
+      <nav class="toolbar" aria-label="Инструменты">
+        <button class="button button--primary" id="openButton" title="Открыть файл">Открыть</button>
+        <button class="button" id="newButton" title="Создать новый документ">Новый</button>
+        <button class="button" id="saveButton" title="Сохранить Markdown-файл">Сохранить MD</button>
+        <button class="button" id="pdfButton" title="Сохранить оформленный отчёт в PDF">Экспорт PDF</button>
+        <button class="button button--icon" id="printButton" title="Печать" aria-label="Печать">⎙</button>
+        <button class="button button--icon" id="themeButton" title="Переключить тему" aria-label="Переключить тему">☾</button>
+      </nav>
+    </header>
+
+    <div class="workspace">
+      <aside class="sidebar">
+        <div class="sidebar__header">
+          <span>Недавние документы</span>
+          <button class="sidebar__open" id="sidebarOpenButton" title="Открыть документ" aria-label="Открыть документ">+</button>
+        </div>
+        <div class="recent-list" id="recentList"></div>
+        <div class="sidebar__note">Перетащите `.md` файл в окно, чтобы открыть его.</div>
+      </aside>
+
+      <main class="main">
+        <section class="document-bar">
+          <div class="document-title">
+            <strong id="fileName">Новый отчёт</strong>
+            <span id="filePath">Документ ещё не сохранён</span>
+          </div>
+          <div class="view-switcher" role="tablist" aria-label="Режим отображения">
+            <button class="view-switcher__button is-active" data-mode="preview">Просмотр</button>
+            <button class="view-switcher__button" data-mode="split">Разделённый</button>
+            <button class="view-switcher__button" data-mode="editor">Редактор</button>
+          </div>
+          <span class="save-state" id="saveState">Сохранено</span>
+        </section>
+
+        <section class="content mode-preview" id="content">
+          <div class="editor-panel">
+            <textarea id="editor" spellcheck="true" aria-label="Редактор Markdown"></textarea>
+          </div>
+          <div class="preview-panel">
+            <article class="markdown-body" id="preview"></article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="drop-overlay" id="dropOverlay">Отпустите файл, чтобы открыть отчёт</div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="../../node_modules/marked/lib/marked.umd.js"></script>
+    <script src="../../node_modules/dompurify/dist/purify.min.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

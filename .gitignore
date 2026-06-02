@@ -1,0 +1,7 @@
+node_modules/
+dist/
+release/*.exe
+release/*.md
+MD-Reports-Client-Package.zip
+test/*.pdf
+*.log

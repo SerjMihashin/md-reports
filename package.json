@@ -1,0 +1,45 @@
+{
+  "name": "client-md-viewer",
+  "version": "1.1.0",
+  "description": "Offline Markdown report viewer and editor for Windows",
+  "main": "src/main.js",
+  "author": "Klimat Shop",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win portable",
+    "dist": "electron-builder --win portable",
+    "test:pdf": "electron test/smoke-pdf.js"
+  },
+  "dependencies": {
+    "dompurify": "^3.2.6",
+    "marked": "^15.0.12"
+  },
+  "devDependencies": {
+    "electron": "^36.4.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "ru.klimatshop.markdownviewer",
+    "productName": "MD Отчёты",
+    "asar": true,
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "build/icon.png",
+      "node_modules/**/*",
+      "package.json"
+    ],
+    "portable": {
+      "artifactName": "MD-Reports-Portable-${version}.exe"
+    },
+    "win": {
+      "icon": "build/icon.png",
+      "target": [
+        "portable"
+      ]
+    }
+  }
+}
