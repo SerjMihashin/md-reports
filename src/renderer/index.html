@@ -12,41 +12,89 @@
         <img class="brand__mark" src="./assets/logo.png" alt="">
         <div>
           <strong>MD Отчёты</strong>
-          <span>Просмотр и редактирование документов</span>
+          <span>Просмотр и редактирование</span>
         </div>
       </div>
       <nav class="toolbar" aria-label="Инструменты">
-        <button class="button button--primary" id="openButton" title="Открыть файл">Открыть</button>
-        <button class="button" id="newButton" title="Создать новый документ">Новый</button>
-        <button class="button" id="saveButton" title="Сохранить Markdown-файл">Сохранить MD</button>
-        <button class="button" id="pdfButton" title="Сохранить оформленный отчёт в PDF">Экспорт PDF</button>
-        <button class="button button--icon" id="printButton" title="Печать" aria-label="Печать">⎙</button>
-        <button class="button button--icon" id="themeButton" title="Переключить тему" aria-label="Переключить тему">☾</button>
+        <button class="button" id="openButton" title="Открыть файл (Ctrl+O)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+          Открыть
+        </button>
+        <button class="button" id="newButton" title="Новый документ (Ctrl+N)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Новый
+        </button>
+        <button class="button" id="saveButton" title="Сохранить (Ctrl+S)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          Сохранить MD
+        </button>
+        <button class="button button--primary" id="pdfButton" title="Экспорт в PDF">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          Экспорт PDF
+        </button>
+        <button class="button button--icon" id="printButton" title="Печать" aria-label="Печать">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        </button>
+        <button class="button button--icon" id="themeButton" title="Переключить тему" aria-label="Переключить тему">
+          <svg class="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
       </nav>
     </header>
 
-    <div class="workspace">
-      <aside class="sidebar">
-        <div class="sidebar__header">
-          <span>Недавние документы</span>
-          <button class="sidebar__open" id="sidebarOpenButton" title="Открыть документ" aria-label="Открыть документ">+</button>
+    <div class="workspace" id="workspace">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar__inner">
+          <div class="sidebar__header">
+            <span>Недавние документы</span>
+            <div class="sidebar__actions">
+              <button class="sidebar__btn" id="sidebarOpenButton" title="Открыть документ" aria-label="Открыть документ">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+              </button>
+              <button class="sidebar__btn sidebar-toggle" id="sidebarToggle" title="Свернуть панель" aria-label="Свернуть панель">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="recent-tools" id="recentTools">
+            <label class="recent-tools__select" title="Выбрать все документы">
+              <input type="checkbox" id="selectAllRecent">
+              <span id="selectedRecentCount">Все</span>
+            </label>
+            <div class="recent-tools__actions">
+              <button class="recent-tools__button" id="zipRecentButton" title="Сохранить выбранные документы в ZIP" aria-label="Сохранить выбранные документы в ZIP" disabled>
+                <span>ZIP</span>
+              </button>
+              <button class="recent-tools__button" id="printRecentButton" title="Распечатать выбранные документы" aria-label="Распечатать выбранные документы" disabled>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+              </button>
+              <button class="recent-tools__button recent-tools__button--danger" id="removeRecentButton" title="Убрать выбранные документы из списка" aria-label="Убрать выбранные документы из списка" disabled>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6m3 0V4h8v2"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="recent-list" id="recentList"></div>
+          <div class="sidebar__note">Перетащите `.md` файл в окно, чтобы открыть его.</div>
         </div>
-        <div class="recent-list" id="recentList"></div>
-        <div class="sidebar__note">Перетащите `.md` файл в окно, чтобы открыть его.</div>
       </aside>
 
       <main class="main">
         <section class="document-bar">
           <div class="document-title">
-            <strong id="fileName">Новый отчёт</strong>
-            <span id="filePath">Документ ещё не сохранён</span>
+            <span class="document-title__dot" id="statusDot"></span>
+            <div class="document-title__texts">
+              <strong id="fileName">Новый отчёт</strong>
+              <span id="filePath">Документ ещё не сохранён</span>
+            </div>
           </div>
           <div class="view-switcher" role="tablist" aria-label="Режим отображения">
             <button class="view-switcher__button is-active" data-mode="preview">Просмотр</button>
             <button class="view-switcher__button" data-mode="split">Разделённый</button>
             <button class="view-switcher__button" data-mode="editor">Редактор</button>
           </div>
-          <span class="save-state" id="saveState">Сохранено</span>
+          <span class="save-state" id="saveState">
+            <span class="save-state__dot"></span>
+            <span id="saveStateText">Сохранено</span>
+          </span>
         </section>
 
         <section class="content mode-preview" id="content">
@@ -60,8 +108,15 @@
       </main>
     </div>
 
-    <div class="drop-overlay" id="dropOverlay">Отпустите файл, чтобы открыть отчёт</div>
-    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="drop-overlay" id="dropOverlay">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="12" y2="12"/><line x1="15" y1="15" x2="12" y2="12"/></svg>
+      Отпустите файл, чтобы открыть отчёт
+      <span>Поддерживаются файлы .md, .markdown, .txt</span>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite">
+      <svg class="toast__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <span class="toast__text"></span>
+    </div>
 
     <script src="../../node_modules/marked/lib/marked.umd.js"></script>
     <script src="../../node_modules/dompurify/dist/purify.min.js"></script>
