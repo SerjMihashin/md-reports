@@ -1,6 +1,6 @@
 {
   "name": "client-md-viewer",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Offline Markdown report viewer and editor for Windows",
   "main": "src/main.js",
   "author": "Klimat Shop",
@@ -44,7 +44,8 @@
       "createDesktopShortcut": "always",
       "createStartMenuShortcut": true,
       "shortcutName": "MD Reports",
-      "deleteAppDataOnUninstall": false
+      "deleteAppDataOnUninstall": false,
+      "include": "build/installer.nsh"
     },
     "fileAssociations": [
       {
