@@ -1,17 +1,17 @@
 {
   "name": "client-md-viewer",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "Offline Markdown report viewer and editor for Windows",
   "main": "src/main.js",
   "author": "Klimat Shop",
   "license": "MIT",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder --win",
-    "dist": "electron-builder --win",
-    "build:win": "electron-builder --win",
-    "build:linux": "electron-builder --linux AppImage deb",
-    "build:mac": "electron-builder --mac dmg zip",
+    "build": "electron-builder --win --publish never",
+    "dist": "electron-builder --win --publish never",
+    "build:win": "electron-builder --win --publish never",
+    "build:linux": "electron-builder --linux AppImage deb --publish never",
+    "build:mac": "electron-builder --mac dmg zip --x64 --arm64 --publish never",
     "test:pdf": "electron test/smoke-pdf.js"
   },
   "dependencies": {
@@ -52,10 +52,13 @@
     },
     "fileAssociations": [
       {
-        "ext": [
-          "md",
-          "markdown"
-        ],
+        "ext": "md",
+        "name": "Markdown Document",
+        "description": "Markdown document",
+        "role": "Editor"
+      },
+      {
+        "ext": "markdown",
         "name": "Markdown Document",
         "description": "Markdown document",
         "role": "Editor"
