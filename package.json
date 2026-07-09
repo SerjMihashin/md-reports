@@ -1,14 +1,14 @@
 {
   "name": "client-md-viewer",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Offline Markdown report viewer and editor for Windows",
   "main": "src/main.js",
   "author": "Klimat Shop",
   "license": "MIT",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder --win portable",
-    "dist": "electron-builder --win portable",
+    "build": "electron-builder --win",
+    "dist": "electron-builder --win",
     "test:pdf": "electron test/smoke-pdf.js"
   },
   "dependencies": {
@@ -21,7 +21,7 @@
   },
   "build": {
     "appId": "ru.klimatshop.markdownviewer",
-    "productName": "MD Отчёты",
+    "productName": "MD Reports",
     "asar": true,
     "directories": {
       "output": "dist"
@@ -35,9 +35,38 @@
     "portable": {
       "artifactName": "MD-Reports-Portable-${version}.exe"
     },
+    "nsis": {
+      "artifactName": "MD-Reports-Setup-${version}.exe",
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": "always",
+      "createStartMenuShortcut": true,
+      "shortcutName": "MD Reports",
+      "deleteAppDataOnUninstall": false
+    },
+    "fileAssociations": [
+      {
+        "ext": [
+          "md",
+          "markdown"
+        ],
+        "name": "Markdown Document",
+        "description": "Markdown document",
+        "role": "Editor"
+      },
+      {
+        "ext": "txt",
+        "name": "Text Document",
+        "description": "Text document",
+        "role": "Editor"
+      }
+    ],
     "win": {
       "icon": "build/icon.png",
       "target": [
+        "nsis",
         "portable"
       ]
     }
